@@ -119,7 +119,8 @@ module.exports = function(passport) {
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "https://mgd-server.herokuapp.com/auth/facebook/callback"
+    callbackURL: "https://mgd-server.herokuapp.com/auth/facebook/callback",
+    profileFields: ["id","email"]
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOne({ id: profile.id }, function (err, user) {
