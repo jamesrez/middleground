@@ -2,6 +2,7 @@
 
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model
 var User            = require('../models/user');
@@ -47,7 +48,7 @@ module.exports = function(passport) {
 
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'username' :  username }, function(err, user) {
+        User.findOne({ 'email' :  username }, function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
@@ -62,7 +63,7 @@ module.exports = function(passport) {
                 var newUser = new User();
 
                 // set the user's local credentials
-                newUser.username   = username;
+                newUser.email   = username;
                 newUser.password = newUser.generateHash(password);
 
                 // save the user
@@ -113,5 +114,21 @@ module.exports = function(passport) {
         });
 
     }));
+
+  //FACEBOOK STRATEGY
+  passport.use(new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ id: profile.id }, function (err, user) {
+      user.email = profile.emails[0].value;
+      user.token = profile.token;
+      user.save(function(err, thisUser){
+        return cb(err, user);
+      })
+    });
+  }));
 
 };

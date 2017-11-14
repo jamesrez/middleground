@@ -12,6 +12,10 @@ $(document).ready(function(){
     });
   });
 
+  $('#facebookBtn').click(function(){
+    $.get('/auth/facebook');
+  });
+
   $('#logoutBtn').click(function(){
     $.post('/logout', function(req,res){
         location.reload();
