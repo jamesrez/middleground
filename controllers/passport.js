@@ -122,7 +122,7 @@ module.exports = function(passport) {
     callbackURL: "https://mgd-server.herokuapp.com/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOne({ email: profile.emails }, function (err, user) {
+    User.findOne({ id: profile.id }, function (err, user) {
       // if there is an error, stop everything and return that
      // ie an error connecting to the database
      if (err)
