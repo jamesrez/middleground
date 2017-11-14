@@ -137,7 +137,7 @@ module.exports = function(passport) {
         user.email = profile.emails;
         user.token = profile.token;
         user.save(function(err, thisUser){
-          return cb(err, user);
+          return cb(err, thisUser);
         })
       }
     });
