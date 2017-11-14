@@ -135,7 +135,7 @@ module.exports = function(passport) {
            // if there is no user found with that facebook id, create them
         var user = new User();
         user.id = profile.id;
-        user.email = profile.emails[0].value;
+        user.email = profile.emails;
         user.token = profile.token;
         user.save(function(err, thisUser){
           return cb(err, user);
