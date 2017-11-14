@@ -1,0 +1,12 @@
+head
+  script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
+  script(src='index.js')
+
+if(!currentUser)
+  input#username
+  input#password
+  button#registerBtn Register
+  button#loginBtn Login
+else
+  p=currentUser.username
+  button#logoutBtn Logout
