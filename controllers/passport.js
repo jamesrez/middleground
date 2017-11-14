@@ -122,12 +122,25 @@ module.exports = function(passport) {
     callbackURL: "https://mgd-server.herokuapp.com/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ id: profile.id }, function (err, user) {
-      user.email = profile.emails[0].value;
-      user.token = profile.token;
-      user.save(function(err, thisUser){
-        return cb(err, user);
-      })
+    User.findOne({ id: profile.id }, function (err, user) {
+      // if there is an error, stop everything and return that
+     // ie an error connecting to the database
+     if (err)
+         return done(err);
+
+     // if the user is found, then log them in
+     if (user) {
+         return done(null, user); // user found, return that user
+     } else {
+           // if there is no user found with that facebook id, create them
+        var newUser            = new User();
+        user.id = profile.id;
+        user.email = profile.emails[0].value;
+        user.token = profile.token;
+        user.save(function(err, thisUser){
+          return cb(err, user);
+        })
+      }
     });
   }));
 
