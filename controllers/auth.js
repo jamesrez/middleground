@@ -19,6 +19,10 @@ module.exports = function(app, passport) {
       res.send(req.user);
   })
 
+  app.get('/test', function(req,res){
+    res.send("Shoot");
+  })
+
 
   app.post('/logout' , function(req,res){
       req.logout();
