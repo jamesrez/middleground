@@ -16,7 +16,7 @@ module.exports = function(app, passport) {
 
   app.get('/auth/facebook/callback', passport.authenticate('facebook'),
     function(req,res){
-      res.send(req.user.email);
+      res.send(req.user);
   })
 
 

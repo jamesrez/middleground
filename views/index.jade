@@ -7,7 +7,7 @@ if(!currentUser)
   input#password
   button#registerBtn Register
   button#loginBtn Login
-  button#facebookBtn Facebook
+  a(href='/auth/facebook')#facebookBtn Facebook
 else
   p=currentUser.email
   button#logoutBtn Logout
