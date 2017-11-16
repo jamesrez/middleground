@@ -28,6 +28,10 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./controllers/auth')(app, passport);
 require('./controllers/passport')(passport);
 
+var userRouter = express.Router();
+app.use('/user', userRouter)
+require('./controllers/userRoutes')(userRouter);
+
 app.get('/', function(req,res){
   res.render('index.jade', {currentUser : req.user});
 });
