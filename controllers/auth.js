@@ -20,7 +20,7 @@ module.exports = function(app, passport) {
   })
 
   app.get('/test', function(req,res){
-    res.send("Shoot");
+    res.json({message: "Shoot"});
   })
 
 
