@@ -13,7 +13,7 @@ $(document).ready(function(){
   });
 
   $('#facebookBtn').click(function(){
-    $.get('/auth/facebook');
+    $.post('/auth/facebook');
   });
 
   $('#logoutBtn').click(function(){

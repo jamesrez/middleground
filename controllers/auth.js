@@ -14,11 +14,12 @@ module.exports = function(app, passport) {
 
   app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'}));
 
-  app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/'}),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      res.redirect('/');
-    });
+  app.get('/auth/facebook/callback', passport.authenticate('facebook',{
+    successRedirect: '/test', failureRedirect: '/login' }),
+    function(req,res){
+      console.log("test");
+  })
+
 
   app.post('/logout' , function(req,res){
       req.logout();
